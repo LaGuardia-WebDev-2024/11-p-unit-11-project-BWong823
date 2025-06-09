@@ -1,18 +1,3 @@
-<!-- Unit 11 Project
-Requirements
-[  ] Three New Arrays
-[  ] One New Loop
-[  ] Custom Function
-[  ] Three new HTML elements/CSS Declarations
-
-Select ONE Additional 
-[ no ] Feature 1 - Array of Colors
-[ no ] Feature 2 - Add to an Array using .push()
-[ no ] Feature 3 - Image on the Canvas
-[ no ] Feature 4 - Include prompt() to Get Info From User
-[ no ] Feature 5 - KeyPressed Feature
--->
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,17 +6,63 @@ Select ONE Additional
     <title>Unit 11 Project</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
-    <style></style>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        text-align: center;
+      }
+      #myCanvas {
+        border: 1px solid #000;
+        margin-top: 20px;
+      }
+      #season-selector {
+        margin: 20px 0;
+      }
+    </style>
   </head>
 
   <body>
     <div class="container">
       <div>
         <h2 id="end">🍂🌼🌞⛄ | My Favorite Season</h2>
-        <canvas id="myCanvas" data-processing-sources="myP5Code.pde"> </canvas>
+        <select id="season-selector">
+          <option value="spring">Spring</option>
+          <option value="summer">Summer</option>
+          <option value="autumn">Autumn</option>
+          <option value="winter">Winter</option>
+        </select>
+        <button id="draw-button">Draw Season</button>
+        <canvas id="myCanvas" data-processing-sources="myP5Code.pde"></canvas>
       </div>
     </div>
+
+    <script>
+      const colors = ["#FFB6C1", "#FFD700", "#00FF7F", "#87CEFA"]; // Array of colors for seasons
+      const seasons = ["Spring", "Summer", "Autumn", "Winter"]; // Array of seasons
+      const activities = ["Flower blooming", "Beach fun", "Leaf falling", "Snowball fights"]; // Array of activities
+
+      function drawSeason(seasonIndex) {
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+        // Set background color based on selected season
+        ctx.fillStyle = colors[seasonIndex];
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw a simple representation of the season
+        ctx.fillStyle = '#000'; // Text color
+        ctx.font = '20px Arial';
+        ctx.fillText(`It's ${seasons[seasonIndex]}!`, 50, 50);
+        ctx.fillText(`Activity: ${activities[seasonIndex]}`, 50, 80);
+      }
+
+      document.getElementById('draw-button').addEventListener('click', () => {
+        const selectedSeason = document.getElementById('season-selector').value;
+        const seasonIndex = ["spring", "summer", "autumn", "winter"].indexOf(selectedSeason);
+        drawSeason(seasonIndex); // Call the custom function to draw the selected season
+      });
+    </script>
   </body>
 </html>
-
-<!--- Taken From Khan Academy Intro to JS: Drawing & Animation --->
